@@ -32,5 +32,25 @@ h1 {
 }
 
 h1:hover {
+  background: rgba(61, 61, 61, 0.7);
+}
+
+/* Bookmarks */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.item {
+  background: rgba(61, 61, 61, 0.5);
+  color: white;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin: 10px;
+}
+
+.item:hover {
   background: rgba(61, 61, 61, 0.6);
+  cursor: pointer;
 }
