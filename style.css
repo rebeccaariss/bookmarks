@@ -54,3 +54,21 @@ h1:hover {
   background: rgba(61, 61, 61, 0.6);
   cursor: pointer;
 }
+
+.fa-times {
+  float: right;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.name {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.name img {
+  height: 15px;
+  width: 15px;
+  vertical-align: sub;
+  margin-right: 5px;
+}
