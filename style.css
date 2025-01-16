@@ -151,8 +151,7 @@ h3 {
 }
 
 /* Form */
-/* form group = label and input */
-.form-group {
+.form-group { /* form group = label and input */
   height: 55px;
 }
 
@@ -183,6 +182,10 @@ button {
 
 button:hover {
   background: var(--primary-color-hover);
+}
+
+button:focus {
+  outline: none; /* Eliminates black outline on click: */
 }
 
 /* Media Query: Large Smartphone (Vertical) */
