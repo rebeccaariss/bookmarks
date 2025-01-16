@@ -2,6 +2,7 @@
 
 :root {
   --primary-color: #0D0025;
+  --primary-color-hover: #291251;
   --border-radius: 5px;
 }
 
@@ -147,6 +148,41 @@ h3 {
 .modal-content {
   padding: 20px;
   background: whitesmoke;
+}
+
+/* Form */
+/* form group = label and input */
+.form-group {
+  height: 55px;
+}
+
+.form-input {
+  width: 97%;
+  padding: 5px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  display: block;
+  outline: none;
+}
+
+.form-label {
+  color: var(--primary-color);
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background: var(--primary-color);
+  height: 30px;
+  width: 100px;
+  border: none;
+  border-radius: var(--border-radius);
+  margin-top: 10px;
+}
+
+button:hover {
+  background: var(--primary-color-hover);
 }
 
 /* Media Query: Large Smartphone (Vertical) */
