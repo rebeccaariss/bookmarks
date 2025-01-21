@@ -17,6 +17,19 @@ modalShow.addEventListener('click', showModal);
 modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false)); // "modal" ID refers to div that spans the entire window
 
+// Validate form:
+function validate(nameValue, urlValue) {
+  const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
+  const regex = new RegExp(expression);
+  if (urlValue.match(regex)) {
+    alert('Match ✅');
+  }
+  if (!urlValue.match(regex)) {
+    alert('Please provide a valid URL.');
+    return false;
+  }
+};
+
 // Handle data from form:
 // For later: MDN's definition of regular expressions: patterns used to match character combinations in strings - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
 function storeBookmark(e) {
@@ -27,6 +40,7 @@ function storeBookmark(e) {
     urlValue = `https://${urlValue}`;
   }
   console.log(nameValue, urlValue);
+  validate(nameValue, urlValue);
 }
 
 // Form event listeners:
