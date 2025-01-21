@@ -38,6 +38,25 @@ function validate(nameValue, urlValue) {
   return true;
 };
 
+// Fetch bookmarks:
+function fetchBookmarks() {
+  // Get bookmarks from localStorage only if available:
+  if (localStorage.getItem('bookmarks')) {
+    bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  } else {
+    // Create bookmarks array in localStorage:
+    bookmarks = [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/rebeccaariss',
+      },
+    ];
+  }
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+};
+
+console.log(bookmarks)
+
 // Handle data from form:
 // For later: MDN's definition of regular expressions: patterns used to match character combinations in strings - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
 function storeBookmark(e) {
@@ -58,11 +77,14 @@ function storeBookmark(e) {
   };
 
   bookmarks.push(bookmark);
-  console.log(JSON.stringify(bookmarks));
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  fetchBookmarks();
   bookmarkForm.reset();
   websiteNameEl.focus(); // return focus to first input field
 }
 
 // Form event listeners:
 bookmarkForm.addEventListener('submit', storeBookmark);
+
+// On load, fetch bookmarks:
+fetchBookmarks();
