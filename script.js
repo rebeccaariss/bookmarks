@@ -6,6 +6,8 @@ const websiteNameEl = document.getElementById('website-name'); // name field in 
 const websiteUrlEl = document.getElementById('website-url'); // url field in form
 const bookmarksContainer = document.getElementById('bookmarks-container');
 
+let bookmarks = [];
+
 // Show modal, focus on input:
 function showModal() {
   modal.classList.add('show-modal');
@@ -45,8 +47,21 @@ function storeBookmark(e) {
   if (!urlValue.includes('https://') && !urlValue.includes('http://')) {
     urlValue = `https://${urlValue}`;
   }
-  console.log(nameValue, urlValue);
-  validate(nameValue, urlValue);
+  
+  if (!validate(nameValue, urlValue)) {
+    return false;
+  }
+
+  const bookmark = {
+    name: nameValue,
+    url: urlValue,
+  };
+
+  bookmarks.push(bookmark);
+  console.log(JSON.stringify(bookmarks));
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  bookmarkForm.reset();
+  websiteNameEl.focus(); // return focus to first input field
 }
 
 // Form event listeners:
