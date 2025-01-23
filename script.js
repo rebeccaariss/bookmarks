@@ -90,6 +90,18 @@ function fetchBookmarks() {
   buildBookmarks();
 }
 
+// Delete bookmark:
+function deleteBookmark(url) {
+  bookmarks.forEach((bookmark, i) => {
+    if (bookmark.url === url) {
+      bookmarks.splice(i, 1);
+    }
+  });
+  // Update bookmarks array in localStorage, re-populate DOM:
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  fetchBookmarks();
+}
+
 // Handle data from form:
 // For later: MDN's definition of regular expressions: patterns used to match character combinations in strings - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
 function storeBookmark(e) {
