@@ -36,7 +36,42 @@ function validate(nameValue, urlValue) {
 
   // if valid:
   return true;
-};
+}
+
+// Build bookmarks DOM dynamically:
+function buildBookmarks() {
+  bookmarks.forEach((bookmark) => {
+    const { name, url } = bookmark; // destructuring
+
+    // Item:
+    const item = document.createElement('div');
+    item.classList.add('item');
+
+    // Close icon:
+    const closeIcon = document.createElement('i');
+    closeIcon.classList.add('fas', 'fa-times');
+    closeIcon.setAttribute('title', 'Delete Bookmark'); // Allows you to hover over and see "Delete Bookmark"
+    closeIcon.setAttribute('onclick', `deleteBookmark('${url}')`);
+
+    // Favicon/link container:
+    const linkInfo = document.createElement('div');
+    linkInfo.classList.add('name');
+    const favicon = document.createElement('img');
+    favicon.setAttribute('src', `favicon-2.png`);
+    favicon.setAttribute('alt', 'Favicon');
+
+    // Link:
+    const link = document.createElement('a');
+    link.setAttribute('href', `${url}`);
+    link.setAttribute('target', '_blank');
+    link.textContent = name;
+
+    // Append to bookmarks container:
+    linkInfo.append(favicon, link);
+    item.append(closeIcon, linkInfo);
+    bookmarksContainer.appendChild(item);
+  });
+}
 
 // Fetch bookmarks:
 function fetchBookmarks() {
@@ -52,10 +87,8 @@ function fetchBookmarks() {
       },
     ];
   }
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-};
-
-console.log(bookmarks)
+  buildBookmarks();
+}
 
 // Handle data from form:
 // For later: MDN's definition of regular expressions: patterns used to match character combinations in strings - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
@@ -74,7 +107,7 @@ function storeBookmark(e) {
   const bookmark = {
     name: nameValue,
     url: urlValue,
-  };
+  }
 
   bookmarks.push(bookmark);
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
