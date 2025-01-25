@@ -6,7 +6,7 @@ const websiteNameEl = document.getElementById('website-name'); // name field in 
 const websiteUrlEl = document.getElementById('website-url'); // url field in form
 const bookmarksContainer = document.getElementById('bookmarks-container');
 
-let bookmarks = [];
+let bookmarks = {};
 
 // Show modal, focus on input:
 function showModal() {
@@ -40,8 +40,11 @@ function validate(nameValue, urlValue) {
 
 // Build bookmarks DOM dynamically:
 function buildBookmarks() {
-  bookmarks.forEach((bookmark) => {
-    const { name, url } = bookmark; // destructuring
+  // ❗️ Remove all bookmark elements first to avoid repeating elements:
+  bookmarksContainer.textContent = '';
+  // Build items:
+  Object.keys(bookmarks).forEach((id) => {
+    const { name, url } = bookmarks[id]; // destructuring
 
     // Item:
     const item = document.createElement('div');
@@ -59,6 +62,9 @@ function buildBookmarks() {
     const favicon = document.createElement('img');
     favicon.setAttribute('src', `favicon-2.png`);
     favicon.setAttribute('alt', 'Favicon');
+
+    // TODO for later: make the favicons more dynamic - need to add logic:
+    // favicon.setAttribute('src', `https://www.google.com/s2/favicons?domain=${url}`);
 
     // Link:
     const link = document.createElement('a');
@@ -79,25 +85,23 @@ function fetchBookmarks() {
   if (localStorage.getItem('bookmarks')) {
     bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
   } else {
-    // Create bookmarks array in localStorage:
-    bookmarks = [
-      {
-        name: 'GitHub',
-        url: 'https://github.com/rebeccaariss',
-      },
-    ];
+    // Create bookmarks object in localStorage:
+    const id = `https://github.com/rebeccaariss`
+    bookmarks[id] = {
+      name: 'GitHub',
+      url: 'https://github.com/rebeccaariss',
+    };
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); //
   }
   buildBookmarks();
 }
 
 // Delete bookmark:
 function deleteBookmark(url) {
-  bookmarks.forEach((bookmark, i) => {
-    if (bookmark.url === url) {
-      bookmarks.splice(i, 1);
-    }
-  });
-  // Update bookmarks array in localStorage, re-populate DOM:
+  if (bookmarks[url]) {
+    delete bookmarks[url];
+  }
+  // Update bookmarks object in localStorage, re-populate DOM:
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   fetchBookmarks();
 }
@@ -121,7 +125,9 @@ function storeBookmark(e) {
     url: urlValue,
   }
 
-  bookmarks.push(bookmark);
+  const id = bookmark.url; // URL as object key
+  bookmarks[id] = bookmark;
+
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   fetchBookmarks();
   bookmarkForm.reset();
