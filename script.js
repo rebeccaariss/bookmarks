@@ -131,6 +131,7 @@ function storeBookmark(e) {
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   fetchBookmarks();
   bookmarkForm.reset();
+  modal.classList.remove('show-modal');
   websiteNameEl.focus(); // return focus to first input field
 }
 
