@@ -63,8 +63,7 @@ function buildBookmarks() {
     favicon.setAttribute('src', `favicon-2.png`);
     favicon.setAttribute('alt', 'Favicon');
 
-    // TODO for later: make the favicons more dynamic - need to add logic:
-    // favicon.setAttribute('src', `https://www.google.com/s2/favicons?domain=${url}`);
+    favicon.setAttribute('src', `https://www.google.com/s2/favicons?domain=${url}`);
 
     // Link:
     const link = document.createElement('a');
